@@ -1,4 +1,4 @@
-# whalye/sslh
+# whayle/sslh
 container for sslh, a ssl/ssh multiplexer : https://www.rutschle.net/tech/sslh/README.html
 
 USE AT YOUR OWN RISK

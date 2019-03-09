@@ -1,5 +1,4 @@
 FROM phusion/baseimage:0.11
-MAINTAINER whalye <whaleofwonder@gmail.com>
 
 # Make APT non-interactive
 ENV DEBIAN_FRONTEND noninteractive
@@ -38,5 +37,7 @@ RUN cp -R /build/runit/. /etc/service/ || :
 # Clean everything up
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build
+
+RUN cd /etc/service/sslh & chown sslh:sslh run & chmod u+x /etc/service/sslh/run
 
 CMD ["/sbin/my_init"]

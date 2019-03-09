@@ -28,3 +28,22 @@ SSL_TARGET_ADDR  | Address to relay when a new SSL (HTTPS) connection is detecte
 SSH_TARGET_ADDR  | Address to relay when a new SSH connection is detected. The format is ```<ip>:<port>```. Defaults to: ```$HOST_ADDR:22```
 VPN_TARGET_ADDR  | Address to relay when a new Open VPN connection is detected. The format is ```<ip>:<port>```. Defaults to: ```$HOST_ADDR:1194```
 TRANSPARENT      | use the transparent option if set to true
+SSLH_USER        | default is ```sslh```
+SSLH_PIDFILE     | default is ```/var/run/sslh/sslh.pid```
+
+
+You will need to map a volume to store configuration from the file /etc/default/sslh, and set RUN=yes
+
+Any settings in this file will override environment settings
+
+Here is a sample file;
+
+```bash
+RUN=yes
+
+# binary to use: forked (sslh) or single-thread (sslh-select) version
+DAEMON=/usr/sbin/sslh
+#DAEMON_OPTS="--user sslh --pidfile /var/run/sslh/sslh.pid"
+
+#Set all other options in environment variables when running the container
+```

@@ -39,6 +39,6 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build
 
 RUN chown sslh:sslh /etc/service/sslh/run & chmod u+x /etc/service/sslh/run
-RUN mkdir /var/run/sslh & chown sslh:sslh /var/run/sslh & chown sslh:sslh /var/run/sslh/sslh.pid
+RUN mkdir /var/run/sslh & chown sslh:sslh /var/run/sslh 
 
 CMD ["/sbin/my_init"]

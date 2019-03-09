@@ -25,5 +25,4 @@ if [ -z "$TRANSPARENT" ]; then
   out = $out+" --transparent"
 fi
 
-
 /usr/sbin/sslh -p $LISTEN_ADDR $out -f

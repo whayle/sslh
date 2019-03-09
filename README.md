@@ -28,4 +28,3 @@ SSL_TARGET_ADDR  | Address to relay when a new SSL (HTTPS) connection is detecte
 SSH_TARGET_ADDR  | Address to relay when a new SSH connection is detected. The format is ```<ip>:<port>```. Defaults to: ```$HOST_ADDR:22```
 VPN_TARGET_ADDR  | Address to relay when a new Open VPN connection is detected. The format is ```<ip>:<port>```. Defaults to: ```$HOST_ADDR:1194```
 TRANSPARENT      | use the transparent option if set to true
-VERBOSE          | set verbose if true

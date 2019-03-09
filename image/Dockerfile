@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.10
+FROM phusion/baseimage:0.11
 MAINTAINER whalye <whaleofwonder@gmail.com>
 
 # Make APT non-interactive

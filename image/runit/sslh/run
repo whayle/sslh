@@ -1,39 +1,39 @@
 #!/bin/bash
 LISTEN_ADDR=${LISTEN_ADDR:-0.0.0.0:443}
 
-HOST_ADDR=$(ifconfig docker0|grep 'inet addr'|awk '{ print $2 }'|cut -d: -f2)
+HOST_ADDR=$(ifconfig docker0|grep 'inet'|awk '{ print $2 }'|cut -d: -f2)
 
 out=""
 if [ -z "$HTTP_TARGET_ADDR" ]; then
-  out = $out+"--http "+$HTTP_TARGET_ADDR + " "
+  out=$out"--http "$HOST_ADDR":80 "
 else
-  out = $out+"--http "+$HOST_ADDR=":80"
+  out=$out"--http "$HTTP_TARGET_ADDR" "
 fi
 if [ -z "$SSL_TARGET_ADDR" ]; then
-  out = $out+"--ssl "+$SSL_TARGET_ADDR + " "
+  out=$out"--ssl "$HOST_ADDR":8443 "
 else
-  out = $out+"--ssl "+$HOST_ADDR=":8443"
+  out=$out"--ssl "$SSL_TARGET_ADDR" "
 fi
 if [ -z "$SSH_TARGET_ADDR" ]; then
-  out = $out+"--ssh"+$SSH_TARGET_ADDR + " "
+  out=$out"--ssh "$HOST_ADDR":22 "   
 else
-  out = $out+"--ssh "+$HOST_ADDR=":22"   
+  out=$out"--ssh"$SSH_TARGET_ADDR" "
 fi
-if [ -z "$VPN_TARGET_ADDR" ]; then
-  out = $out+"--openvpn "+$VPN_TARGET_ADDR + " " 
+if ! [ -z "$VPN_TARGET_ADDR" ]; then
+  out=$out"--openvpn "$VPN_TARGET_ADDR" " 
 fi
-if [ -z "$TRANSPARENT" ]; then
-  out = $out+" --transparent"
+if ! [ -z "$TRANSPARENT" ]; then
+  out=$out" --transparent "
 fi
 if [ -z "$SSLH_USER" ]; then
-  out = $out+" --user "+$SSLH_USER + " "
+  out=$out" --user sslh "
 else
-  out = $out+" --user sslh "
+  out=$out" --user "$SSLH_USER" "
 fi
 if [ -z "$SSLH_PIDFILE" ]; then
-  out = $out+" --pidfile "+$SSLH_PIDFILE 
+  out=$out" --pidfile /var/run/sslh/sslh.pid "
 else
-  out = $out+" --pidfile /var/run/sslh/sslh.pid "
+  out=$out" --pidfile "$SSLH_PIDFILE 
 fi
 
 /usr/sbin/sslh -p $LISTEN_ADDR $out -f

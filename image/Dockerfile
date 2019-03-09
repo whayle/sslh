@@ -15,7 +15,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 # Install packages needed for this image
-RUN apt-get install -y --force-yes --no-install-recommends sslh
+RUN apt-get install -y --force-yes --no-install-recommends sslh net-tools
 
 # This after the package installation so we can use the docker cache
 RUN mkdir /build
@@ -38,6 +38,6 @@ RUN cp -R /build/runit/. /etc/service/ || :
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build
 
-RUN cd /etc/service/sslh & chown sslh:sslh run & chmod u+x /etc/service/sslh/run
+RUN chown sslh:sslh /etc/service/sslh/run & chmod u+x /etc/service/sslh/run
 
 CMD ["/sbin/my_init"]

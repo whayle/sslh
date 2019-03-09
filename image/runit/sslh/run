@@ -1,7 +1,7 @@
 #!/bin/bash
 LISTEN_ADDR=${LISTEN_ADDR:-0.0.0.0:443}
 
-HOST_ADDR=$(ifconfig docker0|grep 'inet'|awk '{ print $2 }'|cut -d: -f2)
+HOST_ADDR=$(ifconfig eth0|grep 'inet'|awk '{ print $2 }'|cut -d: -f2)
 
 out=""
 if [ -z "$HTTP_TARGET_ADDR" ]; then

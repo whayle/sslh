@@ -2,6 +2,12 @@
 LISTEN_ADDR=${LISTEN_ADDR:-0.0.0.0:443}
 
 HOST_ADDR=$(ifconfig eth0|grep 'inet'|awk '{ print $2 }'|cut -d: -f2)
+if ! [ -z "$HOST_ADDR" ]; then
+  HOST_ADDR=$(ifconfig enp0s4|grep 'inet'|awk '{ print $2 }'|cut -d: -f2)
+fi
+if ! [ -z "$HOST_ADDR" ]; then
+  HOST_ADDR=0.0.0.0
+fi
 
 out=""
 if [ -z "$HTTP_TARGET_ADDR" ]; then
@@ -17,7 +23,7 @@ fi
 if [ -z "$SSH_TARGET_ADDR" ]; then
   out=$out"--ssh "$HOST_ADDR":22 "   
 else
-  out=$out"--ssh"$SSH_TARGET_ADDR" "
+  out=$out"--ssh "$SSH_TARGET_ADDR" "
 fi
 if ! [ -z "$VPN_TARGET_ADDR" ]; then
   out=$out"--openvpn "$VPN_TARGET_ADDR" " 
